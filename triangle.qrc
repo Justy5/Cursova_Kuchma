@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/traig"/>
+    <qresource prefix="/">
+        <file>paint.png</file>
+        <file>lice.jpg</file>
+        <file>circle</file>
+        <file>untitled.png</file>
+    </qresource>
+</RCC>
