@@ -1,9 +1,11 @@
 <RCC>
     <qresource prefix="/traig"/>
     <qresource prefix="/">
-        <file>paint.png</file>
-        <file>lice.jpg</file>
-        <file>circle</file>
         <file>untitled.png</file>
+        <file>weapon.png</file>
+        <file>scena_pikcha.png</file>
+        <file>weapon-left.png</file>
+        <file>weapon-up.png</file>
+        <file>weapon-down.png</file>
     </qresource>
 </RCC>

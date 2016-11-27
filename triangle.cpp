@@ -5,14 +5,13 @@
 #include <QPainter>
 
 static const double Pi = 3.14159265358979323846264338327950288419717;
-static double TwoPi = 2.0 * Pi;
 
 Triangle::Triangle(QObject *parent) :  QObject(parent), QGraphicsItem()
 {
     setRotation(0);
     gameTimer = new QTimer();
 
-    spriteImage = new QPixmap(":/untitled");
+    spriteImage = new QPixmap(":/weapon");
 
 
     connect(gameTimer, &QTimer::timeout, this, &Triangle::slotGameTimer);
@@ -28,17 +27,13 @@ Triangle::~Triangle()
 
 QRectF Triangle::boundingRect() const
 {
-    return QRectF(-28,-28,56,57);
+    return QRectF(-28,-28,64,64);
 }
 
 void Triangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-
-    QPolygon polygon;
     painter->setCompositionMode(QPainter::CompositionMode_SourceOver);
     painter->drawPixmap(-30,-30,*spriteImage);
-    polygon << QPoint(0,-30) << QPoint(20,30) << QPoint(-20,30);
-    painter->drawPolygon(polygon);
     qDebug()<<kx<<"  "<<ky;
    //-------------------------------------------------
 
@@ -50,43 +45,40 @@ void Triangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 void Triangle::slotGameTimer()
 {
-
+    if(GetAsyncKeyState('W')){
+        this->setY(this->y() - 2);
+        spriteImage = new QPixmap(":/weapon-up");
+    }
     if(GetAsyncKeyState('A')){
         this->setX(this->x() - 2);
-        setRotation(270);
-        kx = this->x();
+        spriteImage = new QPixmap(":/weapon-left");
+
     }
     if(GetAsyncKeyState('D')){
         this->setX(this->x() + 2);
-        setRotation(90);
-        kx = this->x();
-    }
-    if(GetAsyncKeyState('W')){
-        this->setY(this->y() - 2);
-        setRotation(0);
-        ky = this->y();
+        spriteImage = new QPixmap(":/weapon");
+
     }
     if(GetAsyncKeyState('S')){
         this->setY(this->y() + 2);
-        setRotation(180);
-        ky = this->y();
+        spriteImage = new QPixmap(":/weapon-down");
     }
 
     if(this->x() < -250){
         this->setX(-250);
          kx = this->x();// зліва
     }
-    if(this->x() > 250){
-        this->setX(250);
+    if(this->x() > 247){
+        this->setX(247);
          kx = this->x();// справа
     }
 
-    if(this->y() < -250){
-        this->setY(-250);
+    if(this->y() < -185){
+        this->setY(-185);
          ky = this->y();// зверху
     }
-    if(this->y() > 250){
-        this->setY(250);
+    if(this->y() > 247){
+        this->setY(247);
          ky = this->y();// знизу
     }
 

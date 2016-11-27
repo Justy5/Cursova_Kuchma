@@ -26,25 +26,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>80</y>
-     <width>400</width>
-     <height>400</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>400</width>
-     <height>400</height>
-    </size>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
