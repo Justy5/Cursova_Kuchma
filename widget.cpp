@@ -1,7 +1,10 @@
 #include "widget.h"
 #include "ui_widget.h"
 #include <QPixmap>
+#include <iostream>
+#include <QDebug>
 #include <QPainter>
+
 
 Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget)
 {
@@ -19,10 +22,6 @@ Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget)
 
     scene->setSceneRect(-250,-250,500,500);   // розмір сцени
 
-    scene->addLine(-270,-270, 270,-270, QPen(Qt::black));
-    scene->addLine(-270, 270, 270, 270, QPen(Qt::black));
-    scene->addLine(-270,-270,-270, 270, QPen(Qt::black));
-    scene->addLine( 270,-270, 270, 270, QPen(Qt::black));
 
 //------------------------------------------------------
 
@@ -35,8 +34,11 @@ Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget)
     frame = new Frame();
     scene->addItem(frame);
     scene->addItem(triangle);
+    WidballTimer = new QTimer();
 
-//    connect(scene, &CustomScene::signalTargetCoordinate, triangle, &Triangle::paint();
+    connect(WidballTimer, &QTimer::timeout, this, &Widget::slotBall);
+
+    WidballTimer->start(500);
 }
 
 Widget::~Widget()
@@ -44,4 +46,13 @@ Widget::~Widget()
     delete ui;
 }
 
+void Widget::slotBall()
+{
+    if(GetAsyncKeyState(VK_SPACE))
+    {
+            ball = new Ball(triangle);
+            scene->addItem(ball);
+     }
+
+}
 
