@@ -1,8 +1,9 @@
 #include "triangle.h"
 #include <math.h>
-#include <QDebug>
 #include <QImage>
 #include <QPainter>
+#include <QTimer>
+#include <QDebug>
 
 static const double Pi = 3.14159265358979323846264338327950288419717;
 
@@ -10,13 +11,13 @@ Triangle::Triangle(QObject *parent) :  QObject(parent), QGraphicsItem()
 {
     setRotation(0);
     gameTimer = new QTimer();
-
+    posit = 3;
     spriteImage = new QPixmap(":/weapon");
 
 
     connect(gameTimer, &QTimer::timeout, this, &Triangle::slotGameTimer);
   //------------------------------------------------------------
-    gameTimer->start(10);
+    gameTimer->start(19);
     target = QPointF(0,0);
 }
 
@@ -34,7 +35,6 @@ void Triangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 {
     painter->setCompositionMode(QPainter::CompositionMode_SourceOver);
     painter->drawPixmap(-30,-30,*spriteImage);
-    qDebug()<<kx<<"  "<<ky;
    //-------------------------------------------------
 
     Q_UNUSED(option);
@@ -45,41 +45,76 @@ void Triangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 void Triangle::slotGameTimer()
 {
+
+    if(GetAsyncKeyState('W') && GetAsyncKeyState('A')){
+        this->setY(this->y() - 3);
+        this->setX(this->x() - 3);
+        posit = 5;
+    }
+    else
+    if(GetAsyncKeyState('W') && GetAsyncKeyState('D')){
+        this->setY(this->y() - 3);
+        this->setX(this->x() + 3);
+        posit = 6;
+    }
+    else
+    if(GetAsyncKeyState('S') && GetAsyncKeyState('A')){
+        this->setY(this->y() + 3);
+        this->setX(this->x() - 3);
+        posit = 7;
+    }
+    else
+    if(GetAsyncKeyState('S') && GetAsyncKeyState('D')){
+        this->setY(this->y() + 3);
+        this->setX(this->x() + 3);
+        posit = 8;
+    }
+    else
+//----------------------------------------------------------------
     if(GetAsyncKeyState('W')){
-        this->setY(this->y() - 2);
+        this->setY(this->y() - 4);
         spriteImage = new QPixmap(":/weapon-up");
+        posit = 1;
     }
+    else
     if(GetAsyncKeyState('A')){
-        this->setX(this->x() - 2);
+        this->setX(this->x() - 4);
         spriteImage = new QPixmap(":/weapon-left");
-
+        posit = 2;
     }
+    else
     if(GetAsyncKeyState('D')){
-        this->setX(this->x() + 2);
+        this->setX(this->x() + 4);
         spriteImage = new QPixmap(":/weapon");
-
+        posit = 3;
     }
+    else
     if(GetAsyncKeyState('S')){
-        this->setY(this->y() + 2);
+        this->setY(this->y() + 4);
         spriteImage = new QPixmap(":/weapon-down");
+        posit = 4;
     }
+
+
 
     if(this->x() < -250){
         this->setX(-250);
-         kx = this->x();// зліва
+
     }
+
     if(this->x() > 247){
         this->setX(247);
-         kx = this->x();// справа
+
     }
 
     if(this->y() < -185){
         this->setY(-185);
-         ky = this->y();// зверху
+
     }
+
     if(this->y() > 247){
         this->setY(247);
-         ky = this->y();// знизу
+
     }
 
 

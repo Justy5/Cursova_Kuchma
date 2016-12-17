@@ -2,7 +2,7 @@
 
 Frame::Frame(QWidget *parent) : QObject(parent), QGraphicsItem()
 {
-     lice = new QPixmap(":/scena_pikcha.png");
+     lice = new QPixmap(":/scena_pikcha");
      Q_UNUSED(parent);
 }
 

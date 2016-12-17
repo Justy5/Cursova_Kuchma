@@ -18,9 +18,12 @@ class Triangle : public QObject, public QGraphicsItem
     Q_OBJECT
 public:
     explicit Triangle(QObject *parent = 0);
-    QPixmap* getSpriteImage(){ return spriteImage; }
+    int getPosit(){ return posit; }
+    int triangleX(){ return this->x(); }
+    int triangleY(){ return this->y(); }
     ~Triangle();
-
+protected:
+        QPixmap *spriteImage;
 signals:
     void signalTargetCoordinate();
 public slots:
@@ -28,17 +31,17 @@ public slots:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 private:
     QRectF boundingRect() const;
-    int kx,ky;
+
 
 private slots:
     void slotGameTimer();
 
 private:
     QTimer *gameTimer;
-    QPointF target;
-    QPixmap *spriteImage;
+    QPointF target; 
     QPicture *Images;
 
+    int posit;
     int rotation;
 };
 
